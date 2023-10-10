@@ -100,6 +100,34 @@ public class AppInitializer {
         }
     }
 
+    private static void getCustomerById(String id) {
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade",
+                    "root",
+                    "Danu25412541@"
+            );
+
+            String sql = "SELECT * FROM customer WHERE id = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, id);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            if(resultSet.next()) {
+                String cus_id = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                String address = resultSet.getString(3);
+                String tel = resultSet.getString(3);
+
+                System.out.println(cus_id + " - " + name + " - " + address + " - " + tel);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 //        saveCustomer("C001", "Saman", "Panadura", "0745845627");
 
@@ -107,6 +135,8 @@ public class AppInitializer {
 
 //        updateCustomer("C001", "Galle", "+94 774568796");
 
-        loadAllCustomers();
+//        loadAllCustomers();
+
+        getCustomerById("C001");
     }
 }
