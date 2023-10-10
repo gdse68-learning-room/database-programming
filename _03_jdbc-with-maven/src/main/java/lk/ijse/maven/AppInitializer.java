@@ -54,10 +54,35 @@ public class AppInitializer {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-//        saveCustomer("C002", "Saman", "Panadura", "0745845627"
+    private static void updateCustomer(String id, String newAddress, String newTel) {
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade",
+                    "root",
+                    "Danu25412541@"
+            );
 
-        deleteCustomer("C001");
+            String sql = "UPDATE customer SET address = ?, tel = ? WHERE id = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, newAddress);
+            pstm.setString(2, newTel);
+            pstm.setString(3, id);
+
+            int affectedRows = pstm.executeUpdate();
+            System.out.println(affectedRows > 0 ? "customer updated!" : "customer not updated!");
+
+            connection.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+//        saveCustomer("C001", "Saman", "Panadura", "0745845627");
+
+//        deleteCustomer("C001");
+
+        updateCustomer("C001", "Galle", "+94 774568796");
 
     }
 }
