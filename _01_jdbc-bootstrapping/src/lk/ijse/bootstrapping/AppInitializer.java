@@ -5,8 +5,6 @@ package lk.ijse.bootstrapping;
     @created 10/10/23 - 10:39 AM   
 */
 
-import com.mysql.cj.jdbc.Driver;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
