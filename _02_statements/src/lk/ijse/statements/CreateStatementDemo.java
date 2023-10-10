@@ -26,6 +26,9 @@ public class CreateStatementDemo {
         int affectedRows = statement.executeUpdate(sql);
 
         System.out.println(affectedRows > 0 ? "user saved!" : "user not saved!");
+
+        //5th step
+        connection.close();
     }
 
     private static void getAllUser() throws SQLException {
