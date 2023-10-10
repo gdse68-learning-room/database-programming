@@ -32,7 +32,32 @@ public class AppInitializer {
         connection.close();
     }
 
+    private static void deleteCustomer(String id) {
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade",
+                    "root",
+                    "Danu25412541@"
+            );
+
+            String sql = "DELETE FROM customer WHERE id = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            pstm.setString(1, id);
+
+            int affectedRows = pstm.executeUpdate();
+            System.out.println(affectedRows > 0 ? "customer deleted!" : "customer not deleted");
+
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
-        saveCustomer("C002", "Saman", "Panadura", "0745845627");
+//        saveCustomer("C002", "Saman", "Panadura", "0745845627"
+
+        deleteCustomer("C001");
+
     }
 }
