@@ -5,10 +5,7 @@ package lk.ijse.maven;
     @created 10/10/23 - 2:15 PM   
 */
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AppInitializer {
     private static void saveCustomer(String id, String name, String address, String tel) throws SQLException {
@@ -77,12 +74,39 @@ public class AppInitializer {
         }
     }
 
+    private static void loadAllCustomers() {
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade",
+                    "root",
+                    "Danu25412541@"
+            );
+
+            String sql = "SELECT * FROM customer";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            while(resultSet.next()) {
+                String id = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                String address = resultSet.getString(3);
+                String tel = resultSet.getString(3);
+
+                System.out.println(id + " - " + name + " - " + address + " - " + tel);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 //        saveCustomer("C001", "Saman", "Panadura", "0745845627");
 
 //        deleteCustomer("C001");
 
-        updateCustomer("C001", "Galle", "+94 774568796");
+//        updateCustomer("C001", "Galle", "+94 774568796");
 
+        loadAllCustomers();
     }
 }
