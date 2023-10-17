@@ -132,11 +132,6 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnClearOnAction(ActionEvent event) {
-        clearFields();
-    }
-
-    @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = txtId.getText();
 
@@ -199,6 +194,11 @@ public class CustomerFormController {
         txtName.setText("");
         txtAddress.setText("");
         txtTel.setText("");
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFields();
     }
 
 }
