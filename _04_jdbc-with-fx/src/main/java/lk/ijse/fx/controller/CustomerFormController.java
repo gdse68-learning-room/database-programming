@@ -116,6 +116,37 @@ public class CustomerFormController {
         }
     }
 
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String tel = txtTel.getText();
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade2",
+                    "root",
+                    "Sachi@123"
+            );
+
+            String sql = "UPDATE customer SET name = ?, address = ?, tel = ? WHERE id = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            pstm.setString(1, name);
+            pstm.setString(2, address);
+            pstm.setString(3, tel);
+            pstm.setString(4, id);
+
+            if(pstm.executeUpdate() > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
     private void clearFields() {
         txtId.setText("");
         txtName.setText("");
