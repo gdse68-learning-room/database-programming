@@ -8,10 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import lk.ijse.fx.db.DbConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ItemFormController {
     @FXML
@@ -85,7 +82,30 @@ public class ItemFormController {
 
     @FXML
     void txtSearchOnAction(ActionEvent event) {
+        String code = txtCode.getText();
 
+        try {
+            Connection connection = DbConnection.getInstance().getConnection();
+            String sql = "SELECT * FROM item WHERE code = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, code);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            if (resultSet.next()) {
+                String item_code = resultSet.getString(1);
+                String item_description = resultSet.getString(2);
+                double item_unit_price = resultSet.getDouble(3);
+                int item_qty_on_hand = resultSet.getInt(4);
+
+                txtDescription.setText(item_code);
+                txtUnitPrice.setText(String.valueOf(item_unit_price));
+                txtQtyOnHand.setText(String.valueOf(item_qty_on_hand));
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "item not found!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
-
 }
