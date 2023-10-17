@@ -63,7 +63,7 @@
                 </ImageView>
             </graphic>
         </JFXButton>
-        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="107.0" layoutY="243.0" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #7f8c8d;" text="Clear" textFill="WHITE">
+        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="107.0" layoutY="243.0" onAction="#btnClearOnAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #7f8c8d;" text="Clear" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
