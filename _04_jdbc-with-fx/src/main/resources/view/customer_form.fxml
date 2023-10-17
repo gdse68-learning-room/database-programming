@@ -48,7 +48,7 @@
                 </ImageView>
             </graphic>
         </JFXButton>
-        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="224.0" layoutY="243.0" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="WHITE">
+        <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="224.0" layoutY="243.0" onAction="#btnDeleteOnAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>

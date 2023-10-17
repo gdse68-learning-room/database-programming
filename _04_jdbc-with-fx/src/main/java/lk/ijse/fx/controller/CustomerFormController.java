@@ -89,6 +89,33 @@ public class CustomerFormController {
         clearFields();
     }
 
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        String id = txtId.getText();
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kade2",
+                    "root",
+                    "Sachi@123"
+            );
+
+            String sql = "DELETE FROM customer WHERE id = ?";
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, id);
+
+            int affectedRows = pstm.executeUpdate();
+            if (affectedRows > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "no customer found for delete!").show();
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
     private void clearFields() {
         txtId.setText("");
         txtName.setText("");
